@@ -1,13 +1,13 @@
 #define CATCH_CONFIG_MAIN
 #include <iostream>
 
-#include "PythonLikeList.h"
+#include "PyList.h"
 #include "catch.hpp"
 using namespace std;
 
 TEST_CASE("constructors") {
-    PythonLikeList lst;
-    PythonLikeList lst2(5);
+    PyList lst;
+    PyList lst2(5);
     SECTION("empty") { REQUIRE(lst.getSize() == 0); }
     SECTION("nonempty") { REQUIRE(lst2.getSize() == 5); }
     SECTION("getValue") {
@@ -21,25 +21,26 @@ TEST_CASE("constructors") {
         REQUIRE_THROWS_AS(lst2.getValue(5), range_error);
     }
     SECTION("subscripting") {
+        lst2.setValue(0, "hi");
         REQUIRE(lst2[0] == "hi");  // getting the value
         lst2[1] = "hello";         // setting the value.
         REQUIRE(lst2[1] == "hello");
         REQUIRE_THROWS_AS(lst2[5], range_error);
     }
     SECTION("copy constructor") {
-        PythonLikeList lst3(lst2);
+        PyList lst3(lst2);
         REQUIRE(lst3.getSize() == lst2.getSize());
         lst2[2] = "please work!";
         REQUIRE(lst3[2] != "please work!");
     }
     SECTION("printing") {
-        PythonLikeList lst4(2);
+        PyList lst4(2);
         lst4[0] = "Victor";
         lst4[1] = "Norman";
         std::cout << "This is a list -->" << lst4 << "<--\n";
     }
     SECTION("append") {
-        PythonLikeList aList;
+        PyList aList;
         REQUIRE(aList.getSize() == 0);
         aList.append("Alex");
         REQUIRE(aList.getSize() == 1);
@@ -50,19 +51,19 @@ TEST_CASE("constructors") {
         REQUIRE(aList[1] == "Betty");
     }
     SECTION("operator+") {
-        PythonLikeList l1;
+        PyList l1;
         l1.append("Hi");
-        PythonLikeList l2;
+        PyList l2;
         l2.append("Nihao");
         l2.append("Konnichiwa");
-        PythonLikeList l3 = l1 + l2;
+        PyList l3 = l1 + l2;
         REQUIRE(l3.getSize() == 3);
         REQUIRE(l3[0] == "Hi");
         REQUIRE(l3[1] == "Nihao");
         REQUIRE(l3[2] == "Konnichiwa");
     }
     // SECTION("negative indexes") {
-    // PythonLikeList l4;
+    // PyList l4;
     // l4.append("Hi");
     // l4.append("Nihao");
     // l4.append("Konnichiwa");
