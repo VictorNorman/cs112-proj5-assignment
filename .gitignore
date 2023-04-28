@@ -36,3 +36,6 @@ Thumbs.db
 /*.dSYM/
 proj5
 tester
+core
+.nfs*
+
